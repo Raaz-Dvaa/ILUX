@@ -9,7 +9,7 @@ uint8_t ds18b20_init(){
 	GPIOE->ODR &= ~GPIO_ODR_ODR_0;
 	delay_mcs(500);
 	GPIOE->MODER &= ~GPIO_MODER_MODER0_0;// xor?
-	delay_mcs(75);
+	delay_mcs(90);
 	uint8_t status = (GPIOE->IDR & GPIO_IDR_IDR_0) ? 0 : 1;
 	delay_mcs(500);
 	return status;
@@ -18,22 +18,23 @@ uint8_t ds18b20_init(){
 void write_bit(uint8_t bit){
 	if (bit){
 		GPIOE->ODR &= ~GPIO_ODR_ODR_0;
-		delay_mcs(15);
+		delay_mcs(7);
 		GPIOE->ODR |= GPIO_ODR_ODR_0;
-		delay_mcs(70);
+		delay_mcs(90);
 	}
 	else{
 		GPIOE->ODR &= ~GPIO_ODR_ODR_0;
-		delay_mcs(70);
+		delay_mcs(90);
 		GPIOE->ODR |= GPIO_ODR_ODR_0;
 		delay_mcs(1);
 	}
 }
 
 void write_byte(uint8_t byte){
+	GPIOE->MODER &= ~GPIO_MODER_MODER0;
 	GPIOE->MODER |= GPIO_MODER_MODER0_0;
 	for (int i = 0; i < 8; i++){
-		write_bit(byte & 1);
+		write_bit(byte & 0x01);
 		byte >>= 1;
 	}
 }
@@ -64,7 +65,7 @@ void start_measure(){
 	ds18b20_init();
 	write_byte(0xCC);
 	write_byte(0x44);
-	delay_mcs(7500);
+	delay_mcs(8000);
 	ds18b20_init();
 	write_byte(0xCC);
 }

@@ -90,15 +90,50 @@ void SendPacket (uint16_t number, char adr){
 
 }
 
+void send_float (float value, uint8_t accuracy){
+	uint16_t whole = (uint16_t)value;
+	uint16_t frac = (uint16_t)((value - whole) * (10 * accuracy) + 0.5f);
+	char buf[16];
+	char wh[7];
+	char fr[7];
+
+	if (value < 0){
+		while (!(USART2->SR & USART_SR_TXE));
+		USART2->DR = '-';
+	}
+
+	uint8_t lenwhole = GetLenOfNumber(whole);
+	uint8_t lenfrac = GetLenOfNumber(frac);
+	NumberToChar(lenwhole, whole, wh);
+	NumberToChar(lenfrac, frac, fr);
+	for (int i = 0; i < lenwhole; i++){
+		buf[i] = wh[i];
+	}
+
+	buf[lenwhole] = '.';
+
+	for (int t = 0; t < lenfrac; t++){
+		buf[t + lenwhole + 1] = fr[t];
+	}
+
+	for (int y = 0; y < 1 + lenwhole + lenfrac; y++){
+		 while (!(USART2->SR & USART_SR_TXE));
+		 USART2->DR = buf[y];
+	}
+	while (!(USART2->SR & USART_SR_TXE));
+			USART2->DR = ' ';
+
+}
+
 int main(void)
 {
   //RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
   //GPIOA->MODER |= GPIO_MODER_MODER6_0;
   //InitTIM4();
   //NVIC_EnableIRQ(TIM4_IRQn);
-  //USART2_init();
 
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;
+	USART2_init();
 	uint16_t rawtemp = 0;
 	float temper = 0;
   while (1)
@@ -107,5 +142,7 @@ int main(void)
 	  start_measure();
 	  rawtemp = read_data();
 	  temper = rawtemp * 0.0625f;
+	  send_float(temper, 4);
+	  delay_mcs(100000);
   }
 }

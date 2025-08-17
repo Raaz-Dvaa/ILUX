@@ -6,4 +6,5 @@ main.c:38:9:GetLenOfNumber	24	static
 main.c:49:6:NumberToChar	24	static
 main.c:56:10:SumDigit	24	static
 main.c:64:6:SendPacket	80	dynamic
-main.c:93:5:main	16	static
+main.c:93:6:send_float	80	static
+main.c:128:5:main	16	static
