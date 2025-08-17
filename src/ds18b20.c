@@ -51,6 +51,8 @@ uint16_t read_bit (){
 }
 
 uint16_t read_data (){
+	write_byte(0xBE);
+	delay_mcs(20);
 	uint16_t data = 0x0000;
 	uint16_t bit = 0;
 	for (int i = 0; i < 16; i++){

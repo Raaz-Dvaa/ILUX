@@ -142,7 +142,7 @@ int main(void)
 	  start_measure();
 	  rawtemp = read_data();
 	  temper = rawtemp * 0.0625f;
-	  send_float(temper, 4);
-	  delay_mcs(100000);
+	  send_float(temper, 2);
+	  delay_mcs(1000000);
   }
 }
