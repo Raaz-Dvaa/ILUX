@@ -1,0 +1,8 @@
+core_cm4.h:1452:22:NVIC_EnableIRQ	16	static
+USART_transmit.c:3:9:GetLenOfNumber	24	static
+USART_transmit.c:14:6:NumberToChar	24	static
+USART_transmit.c:21:10:SumDigit	24	static
+USART_transmit.c:29:6:SendPacket	80	dynamic
+USART_transmit.c:58:6:send_float	80	static
+USART_transmit.c:93:6:USART2_SendByte	16	static
+USART_transmit.c:100:6:USART2_init	8	static

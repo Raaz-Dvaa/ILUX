@@ -72,6 +72,19 @@ void start_measure(){
 	write_byte(0xCC);
 }
 
+/*	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;
+	USART2_init();
+	uint16_t rawtemp = 0;
+	float temper = 0;
+  while (1)
+  {
+	  start_measure();
+	  rawtemp = read_data();
+	  temper = rawtemp * 0.0625f;
+	  send_float(temper, 3);
+	  delay_mcs(1000000);
+	  // переделал, температуру передает по USART, правильность не проверял, значения вроде похожи на правду
+  } это все написать в main */
 
 
 

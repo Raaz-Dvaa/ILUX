@@ -1,0 +1,5 @@
+ringbuffer.c:5:6:RINGBUFFER_init	16	static
+ringbuffer.c:10:5:RINGBUFFER_put	24	static
+ringbuffer.c:20:5:RINGBUFFER_get	16	static
+ringbuffer.c:29:5:RINGBUFFER_IsEmpty	16	static
+ringbuffer.c:33:5:RINGBUFFER_IsFull	16	static
